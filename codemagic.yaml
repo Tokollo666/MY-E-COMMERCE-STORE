@@ -1,41 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets"
-        xmlns:gap="https://codemagic.io/"
-        id="itvarsity.co.za.pinecity.zoo"
-        version="1.0.0">
-
-    <name>Pine City Zoo</name>
-    <description>A fun and interactive zoo app for visitors.</description>
-    <author email="info@itvarsity.co.za" href="https://www.itvarsity.co.za">
-        Pine City Zoo Development Team
-    </author>
-
-     <!-- Define platforms -->
-    <platform name="android" />
-    <platform name="ios" />
-
-    <!-- CI/CD Tool Configuration -->
-    <preference name="ci-cd-tool" value="codemagic" />
-    <preference name="codemagic-app-id" value="your-app-id-here" />
-    <preference name="codemagic-team-id" value="your-team-id-here" />
-
-    <!-- App orientation -->
-    <preference name="Orientation" value="portrait" />
-
-    <!-- Allow access to external resources -->
-    <access origin="*" />
-
-    <!-- App icons -->
-    <icon src="res/icon/android/icon.png" platform="android" />
-    <icon src="res/icon/ios/icon.png" platform="ios" />
-
-    <!-- Splash screens -->
-    <splash src="res/splash/android/splash.png" platform="android" />
-    <splash src="res/splash/ios/splash.png" platform="ios" />
-
-    <!-- Required plugins -->
-    <plugin name="geolocation" />
-    <plugin name="camera" />
-    <plugin name="dialogs" />
-
-</widget>
+workflows:
+  pine-city-zoo-android:
+    name: "Android Build"
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        PACKAGE_NAME: "itvarsity.co.za.pinecity.zoo"
+    scripts:
+      - name: Install dependencies
+        script: |
+          flutter clean
+          flutter pub get
+      - name: Build APK
+        script: |
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
