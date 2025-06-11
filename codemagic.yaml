@@ -1,7 +1,7 @@
 workflows:
   pine-city-zoo-android:
     name: "Android Build"
-    instance_type: mac_mini_m1
+    instance_type: mac_mini_m2
     environment:
       vars:
         PACKAGE_NAME: "itvarsity.co.za.pinecity.zoo"
